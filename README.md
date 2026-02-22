@@ -224,21 +224,3 @@ UI works properly
 App deployed
 
 This is now exactly the requirement baseline we agreed on.
-
-Next best step for your Sunday–Monday holiday plan:
-
-Day 1
-
-Layout
-
-Routing
-
-Dashboard UI
-
-Day 2
-
-Portfolio Table UI
-
-Search Page UI
-
-After that → logic.
