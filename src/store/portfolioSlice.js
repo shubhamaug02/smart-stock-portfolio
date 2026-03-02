@@ -24,12 +24,15 @@ const portfolioSlice = createSlice({
             }
             else {
                 existing.quantity -= quantity;
-                state.holdings.filter(item => item.quantity > 0);
+                state.holdings = state.holdings.filter(item => item.quantity > 0);
             }
+        },
+        setHoldings: (state, action) => {
+            state.holdings = action.payload;
         }
     }
 });
 
 export default portfolioSlice.reducer;
 
-export const { buyStock, sellStock } = portfolioSlice.actions
+export const { buyStock, sellStock, setHoldings } = portfolioSlice.actions
