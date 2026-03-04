@@ -9,3 +9,13 @@ export const mockPriceMap = {
     TSLA: 180,
     GOOGL: 155,
 }
+
+export const mockStocks = [
+    { symbol: "AAPL", name: "Apple Inc" },
+    { symbol: "TSLA", name: "Tesla Inc" },
+    { symbol: "GOOGL", name: "Alphabet Inc" },
+    { symbol: "MSFT", name: "Microsoft Corp" },
+    { symbol: "AMZN", name: "Amazon.com Inc" },
+    { symbol: "META", name: "Meta Platforms Inc" },
+    { symbol: "NVDA", name: "NVIDIA Corp" },
+]
