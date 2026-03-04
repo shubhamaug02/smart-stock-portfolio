@@ -1,9 +1,17 @@
-import React from 'react'
+import React, { useEffect } from "react";
+import HoldingsTable from "../components/HoldingsTable";
+import { mockPriceMap } from "../constants/mockData";
+import { useSelector } from "react-redux";
+import TradeForm from "../components/TradeForm";
 
 const Portfolio = () => {
-  return (
-    <div>Portfolio</div>
-  )
-}
+  let holdings = useSelector((store) => store.portfolio.holdings);
 
-export default Portfolio
+  return (
+    <div>
+      <HoldingsTable holdings={holdings} priceMap={mockPriceMap} />
+    </div>
+  );
+};
+
+export default Portfolio;
