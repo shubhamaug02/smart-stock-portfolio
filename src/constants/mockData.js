@@ -8,6 +8,10 @@ export const mockPriceMap = {
     AAPL: 170,
     TSLA: 180,
     GOOGL: 155,
+    MSFT: 420,
+    AMZN: 185,
+    META: 510,
+    NVDA: 880,
 }
 
 export const mockStocks = [
