@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import {
   totalInvestedAmount,
   totalPortfolioProfitLoss,
@@ -11,7 +11,6 @@ import { useStockPrices } from "../hooks/useStockPrices";
 
 const Dashboard = () => {
   const holdings = useSelector((store) => store.portfolio.holdings);
-  const dispatch = useDispatch();
   const { priceMap } = useStockPrices(
     holdings?.map((holding) => holding.symbol.toString()),
   );

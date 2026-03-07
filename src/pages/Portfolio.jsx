@@ -1,15 +1,19 @@
-import React, { useEffect } from "react";
+import React from "react";
 import HoldingsTable from "../components/HoldingsTable";
-import { mockPriceMap } from "../constants/mockData";
 import { useSelector } from "react-redux";
-import TradeForm from "../components/TradeForm";
+import { useStockPrices } from "../hooks/useStockPrices";
 
 const Portfolio = () => {
   let holdings = useSelector((store) => store.portfolio.holdings);
+  const { priceMap } = useStockPrices(
+    holdings.map((holding) => holding.symbol),
+  );
 
-  return (
+  return holdings.length === 0 ? (
+    <div>No holdings yet. Search for stocks to get started</div>
+  ) : (
     <div>
-      <HoldingsTable holdings={holdings} priceMap={mockPriceMap} />
+      <HoldingsTable holdings={holdings} priceMap={priceMap} />
     </div>
   );
 };
