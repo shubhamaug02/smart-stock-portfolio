@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { weightedAvgPrice } from "../utils/calculations";
+import { loadHoldings } from "../utils/localStorage";
 
 const portfolioSlice = createSlice({
     name: 'portfolio',
-    initialState: { holdings: [] },
+    initialState: { holdings: loadHoldings() },
     reducers: {
         buyStock: (state, action) => {
             const { symbol, quantity, avgPrice } = action.payload;

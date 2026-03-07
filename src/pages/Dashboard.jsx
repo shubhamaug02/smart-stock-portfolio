@@ -15,7 +15,14 @@ const Dashboard = () => {
     holdings?.map((holding) => holding.symbol.toString()),
   );
 
-  return (
+  return holdings.length === 0 ? (
+    <div className="text-center py-12">
+      <p className="text-lg mb-4">Your portfolio is empty</p>
+      <Link to="/search" className="btn btn-primary">
+        Search Stocks to Get Started
+      </Link>
+    </div>
+  ) : (
     <div>
       <div className="flex">
         <SummaryCard
