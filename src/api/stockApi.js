@@ -14,7 +14,7 @@ export async function fetchStockSearch(query) {
     const data = await fetch(`https://finnhub.io/api/v1/search?q=${query}&token=${import.meta.env.VITE_FINNHUB_API_KEY}`);
     const json = await data.json();
 
-    return json.result.map(item => ({
+    return json.result.filter(item => !item.symbol.includes('.')).map(item => ({
         symbol: item.symbol,
         name: item.description
     }));

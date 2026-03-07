@@ -5,20 +5,23 @@ import {
   totalPortfolioProfitLoss,
   totalPortfolioValue,
 } from "../utils/calculations";
-import { mockPriceMap } from "../constants/mockData";
 import { SummaryCard } from "../components/SummaryCard";
 import HoldingsTable from "../components/HoldingsTable";
+import { useStockPrices } from "../hooks/useStockPrices";
 
 const Dashboard = () => {
   const holdings = useSelector((store) => store.portfolio.holdings);
   const dispatch = useDispatch();
+  const { priceMap } = useStockPrices(
+    holdings?.map((holding) => holding.symbol.toString()),
+  );
 
   return (
     <div>
       <div className="flex">
         <SummaryCard
           title="Portfolio Value"
-          value={totalPortfolioValue(holdings, mockPriceMap)}
+          value={totalPortfolioValue(holdings, priceMap)}
         />
         <SummaryCard
           title="Total Invested"
@@ -26,12 +29,12 @@ const Dashboard = () => {
         />
         <SummaryCard
           title="P&L"
-          value={totalPortfolioProfitLoss(holdings, mockPriceMap)}
+          value={totalPortfolioProfitLoss(holdings, priceMap)}
           showColor={true}
         />
       </div>
 
-      <HoldingsTable holdings={holdings} priceMap={mockPriceMap} />
+      <HoldingsTable holdings={holdings} priceMap={priceMap} />
     </div>
   );
 };
