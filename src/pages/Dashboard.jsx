@@ -8,6 +8,7 @@ import {
 import { SummaryCard } from "../components/SummaryCard";
 import HoldingsTable from "../components/HoldingsTable";
 import { useStockPrices } from "../hooks/useStockPrices";
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
   const holdings = useSelector((store) => store.portfolio.holdings);
