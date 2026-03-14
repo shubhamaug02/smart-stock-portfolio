@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 
-const TradeForm = ({ type, symbol, onSubmit }) => {
+const TradeForm = memo(({ type, symbol, onSubmit }) => {
   const [quantity, setQuantity] = useState("");
 
   const handleOnClick = () => {
@@ -8,7 +8,7 @@ const TradeForm = ({ type, symbol, onSubmit }) => {
     onSubmit(quantity);
   };
 
-  const isBuy = type === "buy" ? true : false;
+  const isBuy = type === "buy";
 
   return (
     <div className="card bg-base-100 shadow-sm p-6 w-80">
@@ -36,6 +36,6 @@ const TradeForm = ({ type, symbol, onSubmit }) => {
       </button>
     </div>
   );
-};
+});
 
 export default TradeForm;

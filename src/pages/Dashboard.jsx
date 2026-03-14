@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
 import {
   totalInvestedAmount,
@@ -16,6 +16,21 @@ const Dashboard = () => {
     holdings?.map((holding) => holding.symbol.toString()),
   );
 
+  const portfolioValue = useMemo(
+    () => totalPortfolioValue(holdings, priceMap),
+    [holdings, priceMap],
+  );
+
+  const investedValue = useMemo(
+    () => totalInvestedAmount(holdings),
+    [holdings],
+  );
+
+  const totalProfiltLoss = useMemo(
+    () => totalPortfolioProfitLoss(holdings, priceMap),
+    [holdings, priceMap],
+  );
+
   return holdings.length === 0 ? (
     <div className="text-center py-12">
       <p className="text-lg mb-4">Your portfolio is empty</p>
@@ -26,19 +41,9 @@ const Dashboard = () => {
   ) : (
     <div>
       <div className="flex">
-        <SummaryCard
-          title="Portfolio Value"
-          value={totalPortfolioValue(holdings, priceMap)}
-        />
-        <SummaryCard
-          title="Total Invested"
-          value={totalInvestedAmount(holdings)}
-        />
-        <SummaryCard
-          title="P&L"
-          value={totalPortfolioProfitLoss(holdings, priceMap)}
-          showColor={true}
-        />
+        <SummaryCard title="Portfolio Value" value={portfolioValue} />
+        <SummaryCard title="Total Invested" value={investedValue} />
+        <SummaryCard title="P&L" value={totalProfiltLoss} showColor={true} />
       </div>
 
       <HoldingsTable holdings={holdings} priceMap={priceMap} />
