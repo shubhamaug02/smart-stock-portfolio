@@ -1,7 +1,7 @@
-import React from "react";
+import React, { memo } from "react";
 import { formatCurrency } from "../utils/formatters";
 
-export const SummaryCard = ({ title, value, showColor }) => {
+export const SummaryCard = memo(({ title, value, showColor }) => {
   return (
     <div className="card bg-base-100 w-96 shadow-sm">
       <div className="card-body">
@@ -18,4 +18,6 @@ export const SummaryCard = ({ title, value, showColor }) => {
       </div>
     </div>
   );
-};
+});
+
+SummaryCard.displayName = "SummaryCard";

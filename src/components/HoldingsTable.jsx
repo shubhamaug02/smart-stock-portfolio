@@ -1,8 +1,8 @@
-import React from "react";
+import React, { memo } from "react";
 import { currentStockHolding, profitLoss } from "../utils/calculations";
 import { formatCurrency } from "../utils/formatters";
 
-const HoldingsTable = ({ holdings, priceMap }) => {
+const HoldingsTable = memo(({ holdings, priceMap }) => {
   const holdingRows = holdings.map((holding) => ({
     symbol: holding.symbol,
     quantity: holding.quantity,
@@ -53,6 +53,7 @@ const HoldingsTable = ({ holdings, priceMap }) => {
       </table>
     </div>
   );
-};
+});
 
+HoldingsTable.displayName = "HoldingsTable";
 export default HoldingsTable;

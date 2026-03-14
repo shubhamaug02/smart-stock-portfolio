@@ -38,4 +38,5 @@ const TradeForm = memo(({ type, symbol, onSubmit }) => {
   );
 });
 
+TradeForm.displayName = "TradeForm";
 export default TradeForm;
