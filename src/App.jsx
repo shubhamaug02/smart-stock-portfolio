@@ -1,12 +1,30 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./layout/Layout";
+import { useDispatch } from "react-redux";
+import { fetchAllHoldings } from "./api/stockApi";
+import { setHoldings } from "./store/portfolioSlice";
 
 function App() {
   const Dashboard = lazy(() => import("./pages/Dashboard"));
   const Portfolio = lazy(() => import("./pages/Portfolio"));
   const Search = lazy(() => import("./pages/Search"));
   const StockDetail = lazy(() => import("./pages/StockDetail"));
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    async function loadHoldings() {
+      try {
+        const data = await fetchAllHoldings();
+        dispatch(setHoldings(data));
+      } catch (e) {
+        console.error("Failed to load the holdings ", e);
+      }
+    }
+
+    loadHoldings();
+  }, []);
 
   return (
     <BrowserRouter>

@@ -4,7 +4,7 @@ import { loadHoldings } from "../utils/localStorage";
 
 const portfolioSlice = createSlice({
     name: 'portfolio',
-    initialState: { holdings: loadHoldings() },
+    initialState: { holdings: [] },
     reducers: {
         buyStock: (state, action) => {
             const { symbol, quantity, avgPrice } = action.payload;

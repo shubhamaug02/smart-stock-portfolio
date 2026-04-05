@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { buyStock, sellStock } from "../store/portfolioSlice";
 import { useStockPrice } from "../hooks/useStockPrice";
 import { formatCurrency } from "../utils/formatters";
+import { buyStockApi, sellStockApi } from "../api/stockApi";
 
 const StockDetail = () => {
   const { symbol } = useParams();
@@ -18,14 +19,16 @@ const StockDetail = () => {
   const currentPrice = data?.currentPrice ?? 0;
 
   const handleBuy = useCallback(
-    (qty) => {
+    async (qty) => {
+      await buyStockApi(symbol, qty, currentPrice);
       dispatch(buyStock({ symbol, quantity: qty, avgPrice: currentPrice }));
     },
     [dispatch, symbol, currentPrice],
   );
 
   const handleSell = useCallback(
-    (qty) => {
+    async (qty) => {
+      await sellStockApi(symbol, qty);
       dispatch(sellStock({ symbol, quantity: qty }));
     },
     [symbol, dispatch],
