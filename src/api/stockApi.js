@@ -1,4 +1,4 @@
-import { buyStock } from "../store/portfolioSlice";
+const BASE_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8080';
 
 export async function fetchStockQuote(symbol) {
     const data = await fetch(`https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${import.meta.env.VITE_FINNHUB_API_KEY}`);
@@ -23,7 +23,7 @@ export async function fetchStockSearch(query) {
 
 export async function fetchAllHoldings() {
     try {
-        const data = await fetch('http://localhost:8080/api/holdings');
+        const data = await fetch(`${BASE_URL}/api/holdings`);
         const json = await data.json();
 
         return json;
@@ -35,7 +35,7 @@ export async function fetchAllHoldings() {
 
 export async function buyStockApi(symbol, quantity, price) {
     try {
-        await fetch('http://localhost:8080/api/holdings/buy', {
+        await fetch(`${BASE_URL}/api/holdings/buy`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -50,7 +50,7 @@ export async function buyStockApi(symbol, quantity, price) {
 
 export async function sellStockApi(symbol, quantity) {
     try {
-        const data = await fetch('http://localhost:8080/api/holdings/sell', {
+        const data = await fetch(`${BASE_URL}/api/holdings/sell`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
