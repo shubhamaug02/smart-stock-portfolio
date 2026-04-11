@@ -23,7 +23,13 @@ export async function fetchStockSearch(query) {
 
 export async function fetchAllHoldings() {
     try {
-        const data = await fetch(`${BASE_URL}/api/holdings`);
+        const data = await fetch(`${BASE_URL}/api/holdings`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": getAuthorizaionToken()
+            }
+        });
         const json = await data.json();
 
         return json;
@@ -38,7 +44,8 @@ export async function buyStockApi(symbol, quantity, price) {
         await fetch(`${BASE_URL}/api/holdings/buy`, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": getAuthorizaionToken()
             },
             body: JSON.stringify({ symbol, quantity, avgPrice: price })
         });
@@ -53,7 +60,8 @@ export async function sellStockApi(symbol, quantity) {
         const data = await fetch(`${BASE_URL}/api/holdings/sell`, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": getAuthorizaionToken()
             },
             body: JSON.stringify({ symbol, quantity })
         });
@@ -61,4 +69,51 @@ export async function sellStockApi(symbol, quantity) {
     catch (e) {
         throw e;
     }
+}
+
+export async function register(username, password) {
+    try {
+        const data = await fetch(`${BASE_URL}/api/auth/register`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ username, password })
+        });
+        if (!data.ok) {
+            throw new Error("Invalid username or password");
+        }
+        const token = await data.text();
+        localStorage.setItem('stock-holding-token', token);
+        return token;
+    }
+    catch (e) {
+        throw e;
+    }
+}
+
+export async function login(username, password) {
+    try {
+        const data = await fetch(`${BASE_URL}/api/auth/login`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ username, password })
+        });
+        if (!data.ok) {
+            throw new Error("Invalid username or password");
+        }
+        const token = await data.text();
+        localStorage.setItem('stock-holding-token', token);
+        return token;
+    }
+    catch (e) {
+        throw e;
+    }
+}
+
+function getAuthorizaionToken() {
+    const token = localStorage.getItem('stock-holding-token');
+    return `Bearer ${token}`;
 }
