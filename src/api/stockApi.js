@@ -117,3 +117,7 @@ function getAuthorizaionToken() {
     const token = localStorage.getItem('stock-holding-token');
     return `Bearer ${token}`;
 }
+
+export function logout() {
+    localStorage.removeItem('stock-holding-token');
+}

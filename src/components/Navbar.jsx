@@ -1,7 +1,15 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../api/stockApi";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
+
   return (
     <div className="navbar bg-base-200 shadow">
       <div className="flex-1">
@@ -22,6 +30,9 @@ const Navbar = () => {
         <Link to="/search" className="btn btn-ghost">
           Search
         </Link>
+        <button className="btn btn-ghost text-error" onClick={handleLogout}>
+          Logout
+        </button>
       </div>
     </div>
   );

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { login, register } from "../api/stockApi";
+import { fetchAllHoldings, login, register } from "../api/stockApi";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setHoldings } from "../store/portfolioSlice";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -9,6 +11,7 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const isLogin = location.pathname === "/login";
+  const dispatch = useDispatch();
 
   const handleSubmit = async () => {
     try {
@@ -21,6 +24,9 @@ const Login = () => {
       } else {
         await register(username, password);
       }
+
+      const data = await fetchAllHoldings();
+      dispatch(setHoldings(data));
 
       navigate("/");
     } catch (e) {
